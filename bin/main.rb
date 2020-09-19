@@ -8,7 +8,7 @@ puts
 
 puts 'Player 1, can you please let me know your name?'
 
-player_1 = gets.chomp()
+player_one = gets.chomp
 
 puts
 
@@ -16,27 +16,26 @@ puts 'Player 2, now is your turn, please let me know your name?'
 
 puts
 
-player_2 = gets.chomp()
+player_two = gets.chomp
 
 puts
 
-puts "Alrighty, so #{player_1} yo'll go first, please choose spot in the board"
+puts "Alrighty, so #{player_one} yo'll go first, please choose spot in the board"
 
-player_1_move = gets.chomp()
-
-puts
-
-puts "Now, #{player_1}, your move is displayed on the board"
+player_one_move = gets.chomp
 
 puts
 
-puts "#{player_2}, is your turn now, please choose spot in the board"
-
-player_2_move = gets.chomp()
+puts "Great, #{player_one} played #{player_one_move}, your move is displayed on the board"
 
 puts
 
-puts "Now, #{player_2}, your move is displayed on the board"
+puts "#{player_two}, is your turn now, please choose spot in the board"
+
+player_two_move = gets.chomp
 
 puts
-  
+
+puts "Awesome, #{player_two} played #{player_two_move}, your move is displayed on the board"
+
+puts
