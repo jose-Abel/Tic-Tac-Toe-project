@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 puts '------------------------------------------------------------------------------------'
 puts 'Welcome to the Great Tic Tac Toe Game in the Console, be prepared to have some fun!'
 puts '------------------------------------------------------------------------------------'
