@@ -14,13 +14,13 @@ def main
   spaces = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
   while is_playing
-    string = "#{player_one[:name]} is your turn, choose a valid place in the board, rows between A, B and C and columns between 1, 2 and 3\n"
+    string = "#{player_one[:name]} please choose a valid place in the board rows between A, B, C and columns between 1, 2, 3\n"
     player_one[:has_won] = get_user_input(player_one, spaces, string)
 
     break if player_one[:has_won]
     break if spaces_empty(player_one, spaces)
 
-    string = "#{player_one[:name]} is your turn, choose a valid place in the board, rows between A, B and C and columns between 1, 2 and 3\n"
+    string = "#{player_two[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
     player_two[:has_won] = get_user_input(player_two, spaces, string)
 
     break if player_two[:has_won]
@@ -73,11 +73,9 @@ end
 def move_in_board(player, spaces, player_move)
   if spaces.include?(player_move)
     spaces.delete(player_move)
-    puts "spaces left are #{spaces}" # Debugging
     player[:moves] << player_move
-    puts "#{player[:name]} has choosen #{player[:moves]}" # Debugging
 
-  else
+  elsif !spaces.include?(player_move)
     string = "That's not a valid position in the board, please choose again!"
     get_user_input(player, spaces, string)
   end
@@ -116,6 +114,7 @@ end
 
 def spaces_empty(player, spaces)
   if spaces.length.zero?
+    puts
     puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
     true
   end
