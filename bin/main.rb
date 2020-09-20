@@ -1,26 +1,27 @@
 #!/usr/bin/env ruby
 
 def main
-  intro()
+  intro
 
-  players_arr = choose_your_player()
+  players_arr = choose_your_player
 
-  isPlaying = true
+  is_playing = true
 
-  player_one = { name: players_arr[0], has_won: false, moves: []}
+  player_one = { name: players_arr[0], has_won: false, moves: [] }
 
-  player_two = { name: players_arr[1], has_won: false, moves: []}
+  player_two = { name: players_arr[1], has_won: false, moves: [] }
 
-  spaces = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']
+  spaces = %W[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
-  while isPlaying
-
-    player_one[:has_won] = move_in_board(player_one, spaces)
+  while is_playing
+    string = "Awesome, so #{player_one[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+    player_one[:has_won] = get_user_input(player_one, spaces, string)
 
     break if player_one[:has_won]
     break if spaces_empty(player_one, spaces)
 
-    player_two[:has_won] = move_in_board(player_two, spaces)
+    string = "Awesome, so #{player_two[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+    player_two[:has_won] = get_user_input(player_two, spaces, string)
 
     break if player_two[:has_won]
     break if spaces_empty(player_two, spaces)
@@ -42,21 +43,18 @@ def intro
   puts "----------------------------------------------------------------------------------------------------\n"
 end
 
-
 def choose_your_player
-
   players_arr = []
-  
   puts
   puts "First player, can you please let me know your name?\n"
 
   player_one = gets.chomp
 
   players_arr << player_one
-  
+
   puts
   puts "Second player, now is your turn, please let me know your name?\n"
-    
+
   player_two = gets.chomp
 
   players_arr << player_two
@@ -64,28 +62,25 @@ def choose_your_player
   players_arr
 end
 
-def move_in_board(player, spaces)
-  
+def get_user_input(player, spaces, string)
   puts
-  puts "Awesome, so #{player[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+  puts string
   puts
+  player_move = gets.chomp.upcase
+  move_in_board(player, spaces, player_move)
+end
 
-  player_move = gets.chomp
-
+def move_in_board(player, spaces, player_move)
   if spaces.include?(player_move)
-
     spaces.delete(player_move)
-
-    puts "spaces left are #{spaces}" #Debugging
-
+    puts "spaces left are #{spaces}" # Debugging
     player[:moves] << player_move
+    puts "#{player[:name]} has choosen #{player[:moves]}" # Debugging
 
-    puts "#{player[:name]} has choosen #{player[:moves]}" #Debugging
-
-  elsif !spaces.include?(player_move)
-    move_in_board(player, spaces)
+  else
+    string = "That's not a valid position in the board, please choose again!"
+    get_user_input(player, spaces, string)
   end
-
   player[:has_won] = checking_players_moves(player)
 end
 
@@ -114,17 +109,16 @@ def checking_players_moves(player)
   elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
     puts "#{player[:name]} you won!"
     true
-  else 
+  else
     false
   end
 end
 
 def spaces_empty(player, spaces)
-  if spaces.length == 0
+  if spaces.length.zero?
     puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
-    true
+    true 
   end
 end
-
 
 main
