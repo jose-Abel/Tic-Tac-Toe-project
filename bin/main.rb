@@ -1,41 +1,130 @@
 #!/usr/bin/env ruby
 
-puts '------------------------------------------------------------------------------------'
-puts 'Welcome to the Great Tic Tac Toe Game in the Console, be prepared to have some fun!'
-puts '------------------------------------------------------------------------------------'
+def main
+  intro()
 
-puts
+  players_arr = choose_your_player()
 
-puts 'Player 1, can you please let me know your name?'
+  isPlaying = true
 
-player_one = gets.chomp
+  player_one = { name: players_arr[0], has_won: false, moves: []}
 
-puts
+  player_two = { name: players_arr[1], has_won: false, moves: []}
 
-puts 'Player 2, now is your turn, please let me know your name?'
+  spaces = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3']
 
-puts
+  while isPlaying
 
-player_two = gets.chomp
+    player_one[:has_won] = move_in_board(player_one, spaces)
 
-puts
+    break if player_one[:has_won]
+    break if spaces_empty(player_one, spaces)
 
-puts "Alrighty, so #{player_one} yo'll go first, please choose spot in the board"
+    player_two[:has_won] = move_in_board(player_two, spaces)
 
-player_one_move = gets.chomp
+    break if player_two[:has_won]
+    break if spaces_empty(player_two, spaces)
 
-puts
+  end
+end
 
-puts "Great, #{player_one} played #{player_one_move}, your move is displayed on the board"
+def intro
+  puts "---------------------------------------------------------------------------------------------------\n"
+  puts "Welcome to the Great Tic Tac Toe Game in the Console\n"
+  puts
+  puts "The board has 3 rows with the letters A, B and C and 3 columns with the numbers 1, 2 and 3\n"
+  puts
+  puts "You have to choose a position base on a row letter and a number column, for example A3.\n"
+  puts
+  puts "If you managed to choose positions sequentially either horizontal, vertical or diagonal you win!\n"
+  puts
+  puts "Time to play the game and that the best player wins, GLHF! \n"
+  puts "----------------------------------------------------------------------------------------------------\n"
+end
 
-puts
 
-puts "#{player_two}, is your turn now, please choose spot in the board"
+def choose_your_player
 
-player_two_move = gets.chomp
+  players_arr = []
+  
+  puts
+  puts "First player, can you please let me know your name?\n"
 
-puts
+  player_one = gets.chomp
 
-puts "Awesome, #{player_two} played #{player_two_move}, your move is displayed on the board"
+  players_arr << player_one
+  
+  puts
+  puts "Second player, now is your turn, please let me know your name?\n"
+    
+  player_two = gets.chomp
 
-puts
+  players_arr << player_two
+
+  players_arr
+end
+
+def move_in_board(player, spaces)
+  
+  puts
+  puts "Awesome, so #{player[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+  puts
+
+  player_move = gets.chomp
+
+  if spaces.include?(player_move)
+
+    spaces.delete(player_move)
+
+    puts "spaces left are #{spaces}" #Debugging
+
+    player[:moves] << player_move
+
+    puts "#{player[:name]} has choosen #{player[:moves]}" #Debugging
+
+  elsif !spaces.include?(player_move)
+    move_in_board(player, spaces)
+  end
+
+  player[:has_won] = checking_players_moves(player)
+end
+
+def checking_players_moves(player)
+  if player[:moves].include?('A1') && player[:moves].include?('A2') && player[:moves].include?('A3')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('B1') && player[:moves].include?('B2') && player[:moves].include?('B3')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('C1') && player[:moves].include?('C2') && player[:moves].include?('C3')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('A1') && player[:moves].include?('B1') && player[:moves].include?('C1')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('A2') && player[:moves].include?('B2') && player[:moves].include?('C2')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('A3') && player[:moves].include?('B3') && player[:moves].include?('C3')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
+    puts "#{player[:name]} you won!"
+    true
+  elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
+    puts "#{player[:name]} you won!"
+    true
+  else 
+    false
+  end
+end
+
+def spaces_empty(player, spaces)
+  if spaces.length == 0
+    puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
+    true
+  end
+end
+
+
+main
