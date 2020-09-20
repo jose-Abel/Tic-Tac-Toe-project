@@ -14,18 +14,15 @@ def main
   spaces = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
   while is_playing
-    string = "#{player_one[:name]} please choose a valid place in the board rows between A, B, C and columns between 1, 2, 3\n"
-    player_one[:has_won] = get_user_input(player_one, spaces, string)
+    player_one[:has_won] = get_user_input(player_one, spaces)
 
     break if player_one[:has_won]
     break if spaces_empty(player_one, spaces)
 
-    string = "#{player_two[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
-    player_two[:has_won] = get_user_input(player_two, spaces, string)
+    player_two[:has_won] = get_user_input(player_two, spaces)
 
     break if player_two[:has_won]
     break if spaces_empty(player_two, spaces)
-
   end
 end
 
@@ -62,7 +59,10 @@ def choose_your_player
   players_arr
 end
 
-def get_user_input(player, spaces, string)
+def get_user_input(player, spaces, string = false)
+  if string == false
+    string = "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
+  end
   puts
   puts string
   puts
@@ -113,11 +113,8 @@ def players_moves(player)
 end
 
 def spaces_empty(player, spaces)
-  if spaces.length.zero?
-    puts
-    puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
-    true
-  end
+  puts "#{player_two[:name]}, there is no more spaces to pick from, both of you tie the game!" if spaces.length.zero?
+  return true if spaces.length.zero?
 end
 
 main
