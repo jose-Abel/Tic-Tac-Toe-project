@@ -11,16 +11,16 @@ def main
 
   player_two = { name: players_arr[1], has_won: false, moves: [] }
 
-  spaces = %W[A1 A2 A3 B1 B2 B3 C1 C2 C3]
+  spaces = %w[A1 A2 A3 B1 B2 B3 C1 C2 C3]
 
   while is_playing
-    string = "Awesome, so #{player_one[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+    string = "#{player_one[:name]} is your turn, choose a valid place in the board, rows between A, B and C and columns between 1, 2 and 3\n"
     player_one[:has_won] = get_user_input(player_one, spaces, string)
 
     break if player_one[:has_won]
     break if spaces_empty(player_one, spaces)
 
-    string = "Awesome, so #{player_two[:name]} now is your turn, please choose a valid place in the board, rows are between the letters A, B and C and columns are between the numbers 1, 2 and 3\n"
+    string = "#{player_one[:name]} is your turn, choose a valid place in the board, rows between A, B and C and columns between 1, 2 and 3\n"
     player_two[:has_won] = get_user_input(player_two, spaces, string)
 
     break if player_two[:has_won]
@@ -81,10 +81,10 @@ def move_in_board(player, spaces, player_move)
     string = "That's not a valid position in the board, please choose again!"
     get_user_input(player, spaces, string)
   end
-  player[:has_won] = checking_players_moves(player)
+  player[:has_won] = players_moves(player)
 end
 
-def checking_players_moves(player)
+def players_moves(player)
   if player[:moves].include?('A1') && player[:moves].include?('A2') && player[:moves].include?('A3')
     puts "#{player[:name]} you won!"
     true
@@ -117,7 +117,7 @@ end
 def spaces_empty(player, spaces)
   if spaces.length.zero?
     puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
-    true 
+    true
   end
 end
 
