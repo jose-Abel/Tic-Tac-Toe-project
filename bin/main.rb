@@ -61,11 +61,10 @@ end
 
 def get_user_input(player, spaces, string = false)
   if string == false
-    string = "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
+    puts "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
+  else 
+    puts string
   end
-  puts
-  puts string
-  puts
   player_move = gets.chomp.upcase
   move_in_board(player, spaces, player_move)
 end
@@ -75,7 +74,7 @@ def move_in_board(player, spaces, player_move)
     spaces.delete(player_move)
     player[:moves] << player_move
 
-  elsif !spaces.include?(player_move)
+  else
     string = "That's not a valid position in the board, please choose again!"
     get_user_input(player, spaces, string)
   end
@@ -113,7 +112,7 @@ def players_moves(player)
 end
 
 def spaces_empty(player, spaces)
-  puts "#{player_two[:name]}, there is no more spaces to pick from, both of you tie the game!" if spaces.length.zero?
+  puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!" if spaces.length.zero?
   return true if spaces.length.zero?
 end
 
