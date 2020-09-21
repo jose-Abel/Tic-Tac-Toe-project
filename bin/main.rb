@@ -62,7 +62,7 @@ end
 def get_user_input(player, spaces, string = false)
   if string == false
     puts "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
-  else 
+  else
     puts string
   end
   player_move = gets.chomp.upcase
@@ -82,6 +82,13 @@ def move_in_board(player, spaces, player_move)
 end
 
 def players_moves(player)
+  horizontal = horizontal_checking(player)
+  vertical = vertical_checking(player)
+  diagonal = diagonal_checking(player)
+  return true if horizontal || vertical || diagonal
+end
+
+def horizontal_checking(player)
   if player[:moves].include?('A1') && player[:moves].include?('A2') && player[:moves].include?('A3')
     puts "#{player[:name]} you won!"
     true
@@ -91,7 +98,13 @@ def players_moves(player)
   elsif player[:moves].include?('C1') && player[:moves].include?('C2') && player[:moves].include?('C3')
     puts "#{player[:name]} you won!"
     true
-  elsif player[:moves].include?('A1') && player[:moves].include?('B1') && player[:moves].include?('C1')
+  else
+    false
+  end
+end
+
+def vertical_checking(player)
+  if player[:moves].include?('A1') && player[:moves].include?('B1') && player[:moves].include?('C1')
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A2') && player[:moves].include?('B2') && player[:moves].include?('C2')
@@ -100,7 +113,13 @@ def players_moves(player)
   elsif player[:moves].include?('A3') && player[:moves].include?('B3') && player[:moves].include?('C3')
     puts "#{player[:name]} you won!"
     true
-  elsif player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
+  else
+    false
+  end
+end
+
+def diagonal_checking(player)
+  if player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
