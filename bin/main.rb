@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# rubocop : disable Metrics/PerceivedComplexity
+
+# rubocop : disable Metrics/CyclomaticComplexity
+
 def main
   intro
 
@@ -136,3 +140,7 @@ def spaces_empty(player, spaces)
 end
 
 main
+
+# rubocop : enable Metrics/PerceivedComplexity
+
+# rubocop : enable Metrics/CyclomaticComplexity
