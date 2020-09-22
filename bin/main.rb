@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-# rubocop : disable Metrics/ModuleLength
-
 # rubocop : disable Metrics/PerceivedComplexity
 
 # rubocop : disable Metrics/CyclomaticComplexity
@@ -144,8 +142,6 @@ def spaces_empty(player, spaces)
 end
 
 main
-
-# rubocop : enable Metrics/ModuleLength
 
 # rubocop : enable Metrics/PerceivedComplexity
 
