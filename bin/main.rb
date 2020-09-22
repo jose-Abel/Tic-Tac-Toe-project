@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# rubocop : disable Metrics/ModuleLength
+
 # rubocop : disable Metrics/PerceivedComplexity
 
 # rubocop : disable Metrics/CyclomaticComplexity
@@ -40,21 +42,21 @@ def intro
   puts
   puts "If you managed to choose positions sequentially either horizontal, vertical or diagonal you win!\n"
   puts
-  puts "Time to play the game and that the best player wins, GLHF! \n"
+  puts "Time to play the game and that the best player wins, GLHF!\n"
   puts "----------------------------------------------------------------------------------------------------\n"
 end
 
 def choose_your_player
   players_arr = []
   puts
-  puts "First player, can you please let me know your name?\n"
+  puts "First player, can you please let me know your name?\n\n"
 
   player_one = gets.chomp
 
   players_arr << player_one
 
   puts
-  puts "Second player, now is your turn, please let me know your name?\n"
+  puts "Second player, now is your turn, please let me know your name?\n\n"
 
   player_two = gets.chomp
 
@@ -63,11 +65,11 @@ def choose_your_player
   players_arr
 end
 
-def get_user_input(player, spaces, string = false)
-  if string == false
-    puts "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n"
+def get_user_input(player, spaces, message = false)
+  if message == false
+    puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
   else
-    puts string
+    puts message
   end
   player_move = gets.chomp.upcase
   move_in_board(player, spaces, player_move)
@@ -76,11 +78,13 @@ end
 def move_in_board(player, spaces, player_move)
   if spaces.include?(player_move)
     spaces.delete(player_move)
+    puts "spaces left are #{spaces}\n\n"
     player[:moves] << player_move
+    puts "#{player[:name]} has choosen #{player[:moves]}\n\n"
 
   else
-    string = "That's not a valid position in the board, please choose again!"
-    get_user_input(player, spaces, string)
+    message = "That's not a valid position in the board, please choose again!"
+    get_user_input(player, spaces, message)
   end
   player[:has_won] = players_moves(player)
 end
@@ -140,6 +144,8 @@ def spaces_empty(player, spaces)
 end
 
 main
+
+# rubocop : enable Metrics/ModuleLength
 
 # rubocop : enable Metrics/PerceivedComplexity
 
