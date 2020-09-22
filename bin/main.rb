@@ -51,6 +51,8 @@ def choose_your_player
 
   player_one = gets.chomp
 
+  player_one = name_not_empty(player_one) if player_one.length.zero?
+
   players_arr << player_one
 
   puts
@@ -58,9 +60,56 @@ def choose_your_player
 
   player_two = gets.chomp
 
+  player_two = name_not_empty(player_one, player_two) if player_two.length.zero?
+
+  player_two = repeated_name(player_one, player_two) if player_two == player_one
+  
   players_arr << player_two
 
   players_arr
+end
+
+def name_not_empty(player_one, player_two = false)
+  puts
+  puts "Name can't be empty, can you please let me know a valid name?\n\n"
+  if player_two == false
+    player_one = gets.chomp
+  else
+    player_two = gets.chomp
+  end
+
+  if player_one.length.zero?
+    name_not_empty(player_one, player_two = false)
+  elsif player_two && player_two.length.zero?
+    name_not_empty(player_one, player_two = false)
+  elsif player_two == player_one
+    repeated_name(player_one, player_two)
+  else
+    puts
+    if player_two == false
+      puts "Thanks #{player_one}"
+      player_one
+    else
+      puts "Thanks #{player_two}"
+      player_two
+    end
+  end
+end
+
+def repeated_name(player_one, player_two)
+  puts
+  puts "Sorry that name is already taken, can you please let me know another name?\n\n"
+  player_two = gets.chomp
+
+  if player_two == player_one
+    repeated_name(player_one, player_two)
+  elsif player_two.length.zero?
+    name_not_empty(player_one, player_two)
+  else
+    puts
+    puts "Awesome, thanks #{player_two}, now lets play!\n\n"
+    player_two
+  end
 end
 
 def get_user_input(player, spaces, message = false)
