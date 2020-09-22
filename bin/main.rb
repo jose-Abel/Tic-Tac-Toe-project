@@ -1,5 +1,11 @@
 #!/usr/bin/env ruby
 
+# rubocop : disable Metrics/ModuleLength
+
+# rubocop : disable Metrics/PerceivedComplexity
+
+# rubocop : disable Metrics/CyclomaticComplexity
+
 def main
   intro
 
@@ -61,10 +67,8 @@ end
 
 def get_user_input(player, spaces, message = false)
   if message == false
-    puts
-    puts "#{player[:name]} please choose a valid place in the board, rows between A, B, C and columns between 1, 2, 3\n\n"
+    puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
   else
-    puts 
     puts message
   end
   player_move = gets.chomp.upcase
@@ -140,3 +144,9 @@ def spaces_empty(player, spaces)
 end
 
 main
+
+# rubocop : enable Metrics/ModuleLength
+
+# rubocop : enable Metrics/PerceivedComplexity
+
+# rubocop : enable Metrics/CyclomaticComplexity
