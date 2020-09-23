@@ -110,13 +110,15 @@ end
 
 def paint_canvas(_player, board)
   puts "     1   2   3\n\n"
-  puts "A    #{board[:a1].empty? ? '__' : board[:a1]}   #{board[:a2].empty? ? '__' : board[:a2]}   #{board[:a3].empty? ? '__' : board[:a3]}"
-  puts "B    #{board[:b1].empty? ? '__' : board[:b1]}   #{board[:b2].empty? ? '__' : board[:b2]}   #{board[:b3].empty? ? '__' : board[:b3]}"
-  puts "C    #{board[:c1].empty? ? '__' : board[:c1]}  #{board[:c2].empty? ? '__' : board[:c2]}   #{board[:c3].empty? ? '__' : board[:c3]}"
+  puts "A    #{board[:a1].empty? ? '_' : board[:a1]} #{board[:a2].empty? ? '_' : board[:a2]} #{board[:a3].empty? ? '_' : board[:a3]}"
+  puts "B    #{board[:b1].empty? ? '_' : board[:b1]} #{board[:b2].empty? ? '_' : board[:b2]} #{board[:b3].empty? ? '_' : board[:b3]}"
+  puts "C    #{board[:c1].empty? ? '_' : board[:c1]} #{board[:c2].empty? ? '_' : board[:c2]} #{board[:c3].empty? ? '_' : board[:c3]}"
 end
 
 def get_user_input(player, board, message = false)
   if message == false
+    puts
+    paint_canvas(player, board)
     puts
     puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
     puts "You are the #{player[:mark]}\n\n"
@@ -124,6 +126,7 @@ def get_user_input(player, board, message = false)
     puts message
   end
   player_move = gets.chomp.upcase
+  puts
   move_in_board(player, board, player_move)
 end
 
@@ -169,12 +172,15 @@ end
 
 def vertical_checking(player)
   if player[:moves].include?('A1') && player[:moves].include?('B1') && player[:moves].include?('C1')
+    puts
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A2') && player[:moves].include?('B2') && player[:moves].include?('C2')
+    puts    
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A3') && player[:moves].include?('B3') && player[:moves].include?('C3')
+    puts    
     puts "#{player[:name]} you won!"
     true
   else
@@ -184,9 +190,11 @@ end
 
 def diagonal_checking(player)
   if player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
+    puts    
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
+    puts    
     puts "#{player[:name]} you won!"
     true
   else
