@@ -136,7 +136,7 @@ def move_in_board(player, board, player_move)
     paint_canvas(player, board)
 
   else
-    message = "That's not a valid position in the board or has been already selected, please choose again!"
+    message = "That's not a valid position in the board or has already been selected, please choose again!"
     get_user_input(player, board, message)
   end
   player[:has_won] = winning_moves(player)
