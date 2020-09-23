@@ -176,11 +176,11 @@ def vertical_checking(player)
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A2') && player[:moves].include?('B2') && player[:moves].include?('C2')
-    puts    
+    puts
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A3') && player[:moves].include?('B3') && player[:moves].include?('C3')
-    puts    
+    puts
     puts "#{player[:name]} you won!"
     true
   else
@@ -190,11 +190,11 @@ end
 
 def diagonal_checking(player)
   if player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
-    puts    
+    puts
     puts "#{player[:name]} you won!"
     true
   elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
-    puts    
+    puts
     puts "#{player[:name]} you won!"
     true
   else
