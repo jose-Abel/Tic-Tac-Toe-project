@@ -8,6 +8,10 @@
 
 # rubocop : disable Layout/LineLength
 
+require_relative = "player"
+
+require_relative = "board"
+
 def main
   intro
 
@@ -15,11 +19,11 @@ def main
 
   is_playing = true
 
-  player_one = { name: players_arr[0], has_won: false, moves: [], mark: 'X' }
+  player_one = Player.new({name: players_arr[0], mark: 'X'})
 
-  player_two = { name: players_arr[1], has_won: false, moves: [], mark: 'O' }
+  player_two = Player.new({name: players_arr[1], mark: 'O'})
 
-  board = { a1: '', a2: '', a3: '', b1: '', b2: '', b3: '', c1: '', c2: '', c3: '' }
+  board = Board.new
 
   while is_playing
     player_one[:has_won] = get_user_input(player_one, board)
@@ -108,106 +112,20 @@ def repeated_name(player_one, player_two)
   end
 end
 
-def paint_canvas(_player, board)
-  puts "     1   2   3\n\n"
-  puts "A    #{board[:a1].empty? ? '_' : board[:a1]} #{board[:a2].empty? ? '_' : board[:a2]} #{board[:a3].empty? ? '_' : board[:a3]}"
-  puts "B    #{board[:b1].empty? ? '_' : board[:b1]} #{board[:b2].empty? ? '_' : board[:b2]} #{board[:b3].empty? ? '_' : board[:b3]}"
-  puts "C    #{board[:c1].empty? ? '_' : board[:c1]} #{board[:c2].empty? ? '_' : board[:c2]} #{board[:c3].empty? ? '_' : board[:c3]}"
-end
-
 def get_user_input(player, board, message = false)
   if message == false
     puts
-    paint_canvas(player, board)
-    puts
     puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
-    puts "You are the #{player[:mark]}\n\n"
+    puts "You are the #{player[:mark]}\n"
+    paint_canvas(player, board) if board.values.all?(&:empty?)
+    puts
   else
     puts message
+    paint_canvas(player, board)
+    puts
   end
   player_move = gets.chomp.upcase
-  puts
   move_in_board(player, board, player_move)
-end
-
-def move_in_board(player, board, player_move)
-  if board.key?(player_move.downcase.to_sym) && board[player_move.downcase.to_sym].empty?
-    board[player_move.downcase.to_sym] = player[:mark]
-    player[:moves] << player_move
-    puts "#{player[:name]} has choosen #{player[:moves]}\n\n"
-    puts "Your move is now displayed in the board\n\n"
-    paint_canvas(player, board)
-
-  else
-    message = "That's not a valid position in the board or has already been selected, please choose again!"
-    get_user_input(player, board, message)
-  end
-  player[:has_won] = winning_moves(player)
-end
-
-def winning_moves(player)
-  horizontal = horizontal_checking(player)
-  vertical = vertical_checking(player)
-  diagonal = diagonal_checking(player)
-  return true if horizontal || vertical || diagonal
-end
-
-def horizontal_checking(player)
-  if player[:moves].include?('A1') && player[:moves].include?('A2') && player[:moves].include?('A3')
-    puts
-    puts "#{player[:name]} you won!"
-    true
-  elsif player[:moves].include?('B1') && player[:moves].include?('B2') && player[:moves].include?('B3')
-    puts
-    puts "#{player[:name]} you won!"
-    true
-  elsif player[:moves].include?('C1') && player[:moves].include?('C2') && player[:moves].include?('C3')
-    puts
-    puts "#{player[:name]} you won!"
-    true
-  else
-    false
-  end
-end
-
-def vertical_checking(player)
-  if player[:moves].include?('A1') && player[:moves].include?('B1') && player[:moves].include?('C1')
-    puts
-    puts "#{player[:name]} you won!"
-    true
-  elsif player[:moves].include?('A2') && player[:moves].include?('B2') && player[:moves].include?('C2')
-    puts    
-    puts "#{player[:name]} you won!"
-    true
-  elsif player[:moves].include?('A3') && player[:moves].include?('B3') && player[:moves].include?('C3')
-    puts    
-    puts "#{player[:name]} you won!"
-    true
-  else
-    false
-  end
-end
-
-def diagonal_checking(player)
-  if player[:moves].include?('A1') && player[:moves].include?('B2') && player[:moves].include?('C3')
-    puts    
-    puts "#{player[:name]} you won!"
-    true
-  elsif player[:moves].include?('A3') && player[:moves].include?('B2') && player[:moves].include?('C1')
-    puts    
-    puts "#{player[:name]} you won!"
-    true
-  else
-    false
-  end
-end
-
-def hash_has_blank(player, hsh)
-  puts
-  unless hsh.values.any?(&:empty?)
-    puts "#{player[:name]}, there is no more spaces to pick from, both of you tie the game!"
-  end
-  hsh.values.any?(&:empty?)
 end
 
 main
