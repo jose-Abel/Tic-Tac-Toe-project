@@ -8,6 +8,8 @@
 
 # rubocop : disable Layout/LineLength
 
+# rubocop : disable Style/SafeNavigation
+
 def main
   intro
 
@@ -213,6 +215,8 @@ def hash_has_blank(player, hsh)
 end
 
 main
+
+# rubocop : enable Style/SafeNavigation
 
 # rubocop : enable Layout/LineLength
 
