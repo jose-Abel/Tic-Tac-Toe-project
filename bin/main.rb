@@ -85,4 +85,22 @@ def get_user_input(player, board, message = false)
   board.move_in_board(player, player_move)
 end
 
+def restarting_game
+  puts
+  puts "Do you want to play another round?\n\n"
+  puts "Type 'yes'/'y' or 'no'/'n'"
+  puts
+  choice = gets.chomp
+  if choice == 'yes' || choice == 'y'
+    puts
+    main
+  elsif choice == 'no' || choice == 'n'
+    return
+  else
+    restarting_game
+  end
+end
+
 main
+
+restarting_game
