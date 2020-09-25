@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/player"
+require_relative '../lib/player'
 
-require_relative "../lib/board"
+require_relative '../lib/board'
 
-require_relative "../lib/helper"
+require_relative '../lib/helper'
 
 def main
   intro
