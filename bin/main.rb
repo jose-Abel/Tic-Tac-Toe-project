@@ -1,16 +1,10 @@
 #!/usr/bin/env ruby
 
-# rubocop : disable Metrics/PerceivedComplexity
+require_relative "../lib/player"
 
-# rubocop : disable Metrics/CyclomaticComplexity
+require_relative "../lib/board"
 
-# rubocop : disable Lint/UselessAssignment
-
-# rubocop : disable Layout/LineLength
-
-require_relative = "player"
-
-require_relative = "board"
+require_relative "../lib/helper"
 
 def main
   intro
@@ -19,22 +13,22 @@ def main
 
   is_playing = true
 
-  player_one = Player.new({name: players_arr[0], mark: 'X'})
+  player_one = Player.new(players_arr[0], 'X')
 
-  player_two = Player.new({name: players_arr[1], mark: 'O'})
+  player_two = Player.new(players_arr[1], 'O')
 
   board = Board.new
 
   while is_playing
-    player_one[:has_won] = get_user_input(player_one, board)
+    player_one.has_won = get_user_input(player_one, board)
 
-    break if player_one[:has_won]
-    break unless hash_has_blank(player_one, board)
+    break if player_one.has_won
+    break unless board.hash_has_blank(player_one)
 
-    player_two[:has_won] = get_user_input(player_two, board)
+    player_two.has_won = get_user_input(player_two, board)
 
-    break if player_two[:has_won]
-    break unless hash_has_blank(player_two, board)
+    break if player_two.has_won
+    break unless board.hash_has_blank(player_two)
   end
 end
 
@@ -59,7 +53,7 @@ def choose_your_player
 
   player_one = gets.chomp
 
-  player_one = name_not_empty(player_one) if player_one.length.zero?
+  player_one = HelperMethods.name_not_empty(player_one) if player_one.length.zero?
 
   players_arr << player_one
 
@@ -68,72 +62,27 @@ def choose_your_player
 
   player_two = gets.chomp
 
-  player_two = name_not_empty(player_one, player_two) if player_two.length.zero?
+  player_two = HelperMethods.name_not_empty(player_one, player_two) if player_two.length.zero?
 
-  player_two = repeated_name(player_one, player_two) if player_two == player_one
+  player_two = HelperMethods.repeated_name(player_one, player_two) if player_two == player_one
 
   players_arr << player_two
 
   players_arr
 end
 
-def name_not_empty(player_one, player_two = false)
-  puts
-  puts "Name can't be empty, can you please let me know a valid name?\n\n"
-  player_two == false ? player_one = gets.chomp : player_two = gets.chomp
-
-  if player_one.empty?
-    name_not_empty(player_one, player_two = false)
-  elsif player_two&.empty?
-    name_not_empty(player_one, player_two)
-  elsif player_two == player_one
-    repeated_name(player_one, player_two)
-  else
-    player = player_two == false ? player_one : player_two
-    puts
-    puts "Great!, thanks #{player}\n\n"
-    player
-  end
-end
-
-def repeated_name(player_one, player_two)
-  puts
-  puts "Sorry #{player_two} is already taken, can you please let me know another name?\n\n"
-  player_two = gets.chomp
-
-  if player_two == player_one
-    repeated_name(player_one, player_two)
-  elsif player_two.length.zero?
-    name_not_empty(player_one, player_two)
-  else
-    puts
-    puts "Awesome, thanks #{player_two}, now lets play!\n\n"
-    player_two
-  end
-end
-
 def get_user_input(player, board, message = false)
   if message == false
     puts
-    puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
-    puts "You are the #{player[:mark]}\n"
-    paint_canvas(player, board) if board.values.all?(&:empty?)
+    puts "#{player.name} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
+    puts "You are the #{player.mark}\n"
+    board.paint_canvas if board.positions.values.all?(&:empty?)
     puts
   else
     puts message
-    paint_canvas(player, board)
-    puts
   end
   player_move = gets.chomp.upcase
-  move_in_board(player, board, player_move)
+  board.move_in_board(player, player_move)
 end
 
 main
-
-# rubocop : enable Layout/LineLength
-
-# rubocop : enable Lint/UselessAssignment
-
-# rubocop : enable Metrics/PerceivedComplexity
-
-# rubocop : enable Metrics/CyclomaticComplexity
