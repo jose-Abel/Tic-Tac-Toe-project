@@ -6,12 +6,6 @@ require_relative '../lib/board'
 
 require_relative '../lib/helper'
 
-# rubocop : disable Lint/UselessAssignment
-
-# rubocop : disable Layout/LineLength
-
-# rubocop : disable Style/SafeNavigation
-
 def main
   intro
 
