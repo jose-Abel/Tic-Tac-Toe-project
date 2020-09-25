@@ -8,6 +8,8 @@
 
 # rubocop : disable Layout/LineLength
 
+# rubocop : disable Style/SafeNavigation
+
 def main
   intro
 
@@ -80,7 +82,7 @@ def name_not_empty(player_one, player_two = false)
 
   if player_one.empty?
     name_not_empty(player_one, player_two = false)
-  elsif player_two&.empty?
+  elsif player_two && player_two.empty?
     name_not_empty(player_one, player_two)
   elsif player_two == player_one
     repeated_name(player_one, player_two)
@@ -108,7 +110,7 @@ def repeated_name(player_one, player_two)
   end
 end
 
-def paint_canvas(_player, board)
+def paint_canvas(board)
   puts
   puts "     1 2 3\n\n"
   puts "A    #{board[:a1].empty? ? '_' : board[:a1]} #{board[:a2].empty? ? '_' : board[:a2]} #{board[:a3].empty? ? '_' : board[:a3]}"
@@ -121,7 +123,7 @@ def get_user_input(player, board, message = false)
     puts
     puts "#{player[:name]} please choose a valid place in board, rows between A, B, C, columns between 1, 2, 3\n\n"
     puts "You are the #{player[:mark]}\n"
-    paint_canvas(player, board) if board.values.all?(&:empty?)
+    paint_canvas(board) if board.values.all?(&:empty?)
     puts
   else
     puts message
@@ -137,7 +139,7 @@ def move_in_board(player, board, player_move)
     puts
     puts "#{player[:name]} has choosen #{player[:moves]}\n\n"
     puts "Your move is now displayed in the board\n\n"
-    paint_canvas(player, board)
+    paint_canvas(board)
 
   else
     message = "That's not a valid position in the board or has already been selected, please choose again!"
@@ -213,6 +215,8 @@ def hash_has_blank(player, hsh)
 end
 
 main
+
+# rubocop : enable Style/SafeNavigation
 
 # rubocop : enable Layout/LineLength
 
