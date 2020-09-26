@@ -3,6 +3,9 @@
 # rubocop : disable Metrics/CyclomaticComplexity
 
 class Player
+
+  include HelperMethods
+
   attr_reader :name
   attr_reader :mark
   attr_accessor :has_won
@@ -26,16 +29,13 @@ class Player
 
   def horizontal_checking
     if moves.include?('A1') && moves.include?('A2') && moves.include?('A3')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     elsif moves.include?('B1') && moves.include?('B2') && moves.include?('B3')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     elsif moves.include?('C1') && moves.include?('C2') && moves.include?('C3')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     else
       false
@@ -44,16 +44,13 @@ class Player
 
   def vertical_checking
     if moves.include?('A1') && moves.include?('B1') && moves.include?('C1')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     elsif moves.include?('A2') && moves.include?('B2') && moves.include?('C2')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     elsif moves.include?('A3') && moves.include?('B3') && moves.include?('C3')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     else
       false
@@ -62,12 +59,10 @@ class Player
 
   def diagonal_checking
     if moves.include?('A1') && moves.include?('B2') && moves.include?('C3')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     elsif moves.include?('A3') && moves.include?('B2') && moves.include?('C1')
-      puts
-      puts "#{name} you won!"
+      HelperMethods.send_message("#{name} you won!")
       true
     else
       false

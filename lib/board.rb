@@ -9,6 +9,8 @@
 class Board
   attr_accessor :positions
 
+  include HelperMethods
+
   def initialize
     @positions = { a1: '', a2: '', a3: '', b1: '', b2: '', b3: '', c1: '', c2: '', c3: '' }
   end
@@ -19,7 +21,7 @@ class Board
       player.moves << player_move
       puts
       puts "#{player.name} has choosen #{player.moves}\n\n"
-      puts "Your move is now displayed in the board\n\n"
+      HelperMethods.send_message("Your move is now displayed in the board\n\n")
       paint_canvas
 
     else
@@ -33,7 +35,7 @@ class Board
   def hash_has_blank(player)
     puts
     unless positions.values.any?(&:empty?)
-      puts "#{player.name}, there is no more spaces to pick from, both of you tie the game!"
+      HelperMethods.send_message("#{player.name}, there is no more spaces to pick from, both of you tie the game!")
     end
     positions.values.any?(&:empty?)
   end

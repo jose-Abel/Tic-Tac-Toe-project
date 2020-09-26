@@ -35,6 +35,10 @@ module HelperMethods
       player_two
     end
   end
+
+  def self.send_message(string)
+    string
+  end
 end
 
 # rubocop : enable Lint/UselessAssignment
