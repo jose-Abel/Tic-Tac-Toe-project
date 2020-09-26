@@ -55,11 +55,9 @@ def choose_your_player
   while i < 3
     player = chosing_player("Player #{i}")
 
-    player = HelperMethods.name_not_empty(player) if player.length.zero?
+    player = HelperMethods.name_not_empty(player) if player.empty?
 
-    if players_arr.length.positive?
-      player = HelperMethods.repeated_name(players_arr[0], player) if player == players_arr[0]
-    end
+    player = HelperMethods.repeated_name(players_arr[0], player) if player == players_arr[0]
 
     players_arr << player
 
