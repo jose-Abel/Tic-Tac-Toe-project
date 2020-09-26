@@ -7,7 +7,9 @@ require_relative '../lib/board'
 require_relative '../lib/helper'
 
 def main
-  intro
+  board = Board.new
+
+  intro(board)
 
   players_arr = choose_your_player
 
@@ -16,8 +18,6 @@ def main
   player_one = Player.new(players_arr[0], 'X')
 
   player_two = Player.new(players_arr[1], 'O')
-
-  board = Board.new
 
   while is_playing
     player_one.has_won = get_user_input(player_one, board)
@@ -32,11 +32,12 @@ def main
   end
 end
 
-def intro
+def intro(board)
   puts "---------------------------------------------------------------------------------------------------\n"
   puts "Welcome to the Great Tic Tac Toe Game in the Console\n"
   puts
   puts "The board has 3 rows with the letters A, B and C and 3 columns with the numbers 1, 2 and 3\n"
+  board.paint_canvas
   puts
   puts "You have to choose a position base on a row letter and a number column, for example A3.\n"
   puts
@@ -48,27 +49,31 @@ end
 
 def choose_your_player
   players_arr = []
-  puts
-  puts "First player, can you please let me know your name?\n\n"
 
-  player_one = gets.chomp
+  i = 1
 
-  player_one = HelperMethods.name_not_empty(player_one) if player_one.length.zero?
+  while i < 3
+    player = chosing_player("Player #{i}")
 
-  players_arr << player_one
+    player = HelperMethods.name_not_empty(player) if player.length.zero?
 
-  puts
-  puts "Second player, now is your turn, please let me know your name?\n\n"
+    if players_arr.length.positive?
+      player = HelperMethods.repeated_name(players_arr[0], player) if player == players_arr[0]
+    end
 
-  player_two = gets.chomp
+    players_arr << player
 
-  player_two = HelperMethods.name_not_empty(player_one, player_two) if player_two.length.zero?
-
-  player_two = HelperMethods.repeated_name(player_one, player_two) if player_two == player_one
-
-  players_arr << player_two
+    i += 1
+  end
 
   players_arr
+end
+
+def chosing_player(player)
+  puts
+  puts "#{player}, can you please let me know your name?\n\n"
+  player = gets.chomp
+  player
 end
 
 def get_user_input(player, board, message = false)
@@ -83,6 +88,15 @@ def get_user_input(player, board, message = false)
   end
   player_move = gets.chomp.upcase
   board.move_in_board(player, player_move)
+end
+
+def puts_message(string)
+  puts
+  puts string
+end
+
+def print_message(string)
+  print string
 end
 
 main
