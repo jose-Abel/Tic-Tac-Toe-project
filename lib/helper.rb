@@ -1,6 +1,6 @@
 module HelperMethods
   def self.name_not_empty
-    puts
+    puts_message('')
     puts_message("Name can't be empty, can you please let me know a valid name?\n\n")
     player = gets_chomp
     if player.empty?

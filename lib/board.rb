@@ -22,7 +22,7 @@ class Board
   end
 
   def hash_has_blank(player)
-    puts
+    puts_message('')
     unless positions.values.any?(&:empty?)
       puts_message("#{player.name}, there is no more spaces to pick from, both of you tie the game!")
     end
