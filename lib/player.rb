@@ -16,7 +16,7 @@ class Player
 
     vertical = vertical_getter
 
-    diagonal = diagonal_checking
+    diagonal = diagonal_getter
 
     true if horizontal || vertical || diagonal
   end
@@ -29,6 +29,10 @@ class Player
 
   def vertical_getter
     true if vertical_checking_one || vertical_checking_two || vertical_checking_three
+  end
+
+  def diagonal_getter
+    true if diagonal_top_bottom || diagonal_bottom_top
   end
 
   def horizontal_checking_a
@@ -85,11 +89,17 @@ class Player
     end
   end
 
-  def diagonal_checking
+  def diagonal_top_bottom
     if moves.include?('A1') && moves.include?('B2') && moves.include?('C3')
       puts_message("#{name} you won!")
       true
-    elsif moves.include?('A3') && moves.include?('B2') && moves.include?('C1')
+    else
+      false
+    end
+  end
+
+  def diagonal_bottom_top
+    if moves.include?('A3') && moves.include?('B2') && moves.include?('C1')
       puts_message("#{name} you won!")
       true
     else

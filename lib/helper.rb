@@ -8,7 +8,7 @@ module HelperMethods
 
     if players[0].empty?
       name_not_empty(players[0])
-    elsif players[1] && players[1].empty?
+    elsif players[1] && players[1].length.zero?
       name_not_empty(players[0], players[1])
     elsif players[1] == players[0]
       repeated_name(players[0], players[1])
@@ -31,6 +31,14 @@ module HelperMethods
       puts_message("Awesome, thanks #{player_two}, now lets play!\n\n")
       player_two
     end
+  end
+
+  def self.name_empty(player)
+    player.empty? ? true : false
+  end
+
+  def self.repeated_name_getter(*players)
+    players[1] == players[0]
   end
 end
 
