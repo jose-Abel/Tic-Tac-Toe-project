@@ -8,12 +8,10 @@ module HelperMethods
 
     if players[0].empty?
       name_not_empty(players[0])
-    elsif players[1] && players[1].length.zero?
-      name_not_empty(players[0], players[1])
     else
       player = players[1] || players[0]
+      player = name_not_empty(players[0], players[1]) if players[1] && players[1].length.zero?
       player = repeated_name(players[0], players[1]) if players[1] == players[0]
-      puts_message('')
       player
     end
   end
