@@ -57,6 +57,8 @@ def choose_your_player
 
     player = HelperMethods.name_not_empty if player.empty?
 
+    player = HelperMethods.name_not_number until player.to_i.zero?
+
     player = HelperMethods.repeated_name(players_arr[0], player) while player == players_arr[0]
 
     players_arr << player
@@ -94,6 +96,11 @@ end
 
 def print_message(string)
   print string
+end
+
+def gets_chomp
+  input = gets.chomp
+  input
 end
 
 main

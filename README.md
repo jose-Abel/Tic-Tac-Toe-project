@@ -25,7 +25,7 @@ For the OOP implementation 2 classes and 1 module were created grouping together
 - Linkedin: [Jose Abel Ramirez Frontany](https://www.linkedin.com/in/jose-abel-ramirez-frontany-7674a842/)
 
 ## Getting Started
-You can clone this code anytime and run it with the Ruby interpreter in the Windows console or Unix terminal or it can run in Unix OS by typing bin/main.rb in the terminal since it has the shebang at the top to make it an executable file.
+You can clone this code anytime and run it with the Ruby interpreter in the Windows console or Unix terminal or it can run in Unix OS by typing bin/main.rb in the terminal since the main file has the shebang at the top to make it an executable file.
 
 
 ### Setup
