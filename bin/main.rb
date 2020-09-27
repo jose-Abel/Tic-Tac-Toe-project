@@ -7,7 +7,9 @@ require_relative '../lib/board'
 require_relative '../lib/helper'
 
 def main
-  intro
+  board = Board.new
+
+  intro(board)
 
   players_arr = choose_your_player
 
@@ -16,8 +18,6 @@ def main
   player_one = Player.new(players_arr[0], 'X')
 
   player_two = Player.new(players_arr[1], 'O')
-
-  board = Board.new
 
   while is_playing
     player_one.has_won = get_user_input(player_one, board)
@@ -30,13 +30,15 @@ def main
     break if player_two.has_won
     break unless board.hash_has_blank(player_two)
   end
+  restarting_game
 end
 
-def intro
+def intro(board)
   puts "---------------------------------------------------------------------------------------------------\n"
   puts "Welcome to the Great Tic Tac Toe Game in the Console\n"
   puts
   puts "The board has 3 rows with the letters A, B and C and 3 columns with the numbers 1, 2 and 3\n"
+  board.paint_canvas
   puts
   puts "You have to choose a position base on a row letter and a number column, for example A3.\n"
   puts
@@ -48,27 +50,30 @@ end
 
 def choose_your_player
   players_arr = []
-  puts
-  puts "First player, can you please let me know your name?\n\n"
 
-  player_one = gets.chomp
+  i = 1
 
-  player_one = HelperMethods.name_not_empty(player_one) if player_one.length.zero?
+  while i < 3
+    player = chosing_player("Player #{i}")
 
-  players_arr << player_one
+    player = HelperMethods.name_not_empty if player.empty?
 
-  puts
-  puts "Second player, now is your turn, please let me know your name?\n\n"
+    player = HelperMethods.name_not_number until player.to_i.zero?
 
-  player_two = gets.chomp
+    player = HelperMethods.repeated_name(players_arr[0], player) while player == players_arr[0]
 
-  player_two = HelperMethods.name_not_empty(player_one, player_two) if player_two.length.zero?
+    players_arr << player
 
-  player_two = HelperMethods.repeated_name(player_one, player_two) if player_two == player_one
-
-  players_arr << player_two
-
+    i += 1
+  end
   players_arr
+end
+
+def chosing_player(player)
+  puts
+  puts "#{player}, can you please let me know your name?\n\n"
+  player = gets.chomp
+  player
 end
 
 def get_user_input(player, board, message = false)
@@ -85,22 +90,35 @@ def get_user_input(player, board, message = false)
   board.move_in_board(player, player_move)
 end
 
+def puts_message(string)
+  puts
+  puts string
+end
+
+def print_message(string)
+  print string
+end
+
+def gets_chomp
+  input = gets.chomp
+  input
+end
+
 def restarting_game
   puts
   puts "Do you want to play another round?\n\n"
   puts "Type 'yes'/'y' or 'no'/'n'"
-  puts
+
   choice = gets.chomp
-  if choice == 'yes' || choice == 'y'
+
+  if choice.include?('yes') || choice.include?('y')
     puts
     main
-  elsif choice == 'no' || choice == 'n'
-    return
+  elsif choice.include?('no') || choice.include?('n')
+    nil
   else
     restarting_game
   end
 end
 
 main
-
-restarting_game
