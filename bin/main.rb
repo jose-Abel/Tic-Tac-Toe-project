@@ -58,7 +58,7 @@ def choose_your_player
 
     player = HelperMethods.name_not_empty if player.empty?
 
-    player = HelperMethods.name_not_number until player.to_i.zero?
+    player = HelperMethods.name_not_number while player.match(/\A[a-zA-Z]*\z/).nil?
 
     player = HelperMethods.repeated_name(players_arr[0], player) while player == players_arr[0]
 
