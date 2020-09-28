@@ -3,7 +3,7 @@
 
 # Tic Tac Toe game in the console
 
-The Microverse third project for the Ruby module that consists of creating a Tic Tac Toe game in the console by following 4 different stages or milestones for the overall implementation, each milestone has to have it's own git branch, and this branch consist in the 3rd milestone where the game logic is created and the codebase is completely change to an OOP programming paradigm.
+The Microverse third project for the Ruby module that consists of creating a Tic Tac Toe game in the console by following 4 different stages or milestones for the overall implementation, each milestone has to have it's own git branch, and this branch consist in the 4th milestone where the readme file is given the final details to download and play the game. For the final result of this project the game had to be created following the OOP programming paradigm.
 
 For the OOP implementation 2 classes and 1 module were created grouping together all the methods that belong to each class and the module. The files are:
 
