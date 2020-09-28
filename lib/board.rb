@@ -31,33 +31,25 @@ class Board
 
   def paint_canvas
     variables = %w[A B C]
-
     numbers = %w[1 2 3]
-
     i = 0
     y = 0
-
     puts_message("   1  2  3\n\n")
-
+  
     while i < variables.length
       var = variables[i].downcase
-
       key = positions[(var + numbers[y].to_s).to_s.to_sym]
+      print_message("#{variables[i]}  ")
 
-      print_message("#{variables[i]}  #{key.empty? ? '_' : key}  ")
-      y += 1
-      key = positions[(var + numbers[y].to_s).to_s.to_sym]
-
-      print_message("#{key.empty? ? '_' : key}  ")
-      y += 1
-      key = positions[(var + numbers[y].to_s).to_s.to_sym]
-
-      print_message((key.empty? ? '_' : key).to_s)
+      while y < numbers.length
+        print_message("#{key.empty? ? '_' : key}  ")
+        y += 1
+        key = positions[(var + numbers[y].to_s).to_s.to_sym]
+      end
+      
       y = 0
-      key = positions[(var + numbers[y].to_s).to_s.to_sym]
-
-      puts_message('')
       i += 1
+      puts_message('')
     end
   end
 end
