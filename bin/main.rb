@@ -30,6 +30,7 @@ def main
     break if player_two.has_won
     break unless board.hash_has_blank(player_two)
   end
+  restarting_game
 end
 
 def intro(board)
@@ -101,6 +102,23 @@ end
 def gets_chomp
   input = gets.chomp
   input
+end
+
+def restarting_game
+  puts
+  puts "Do you want to play another round?\n\n"
+  puts "Type 'yes'/'y' or 'no'/'n'"
+
+  choice = gets.chomp
+
+  if choice.include?('yes') || choice.include?('y')
+    puts
+    main
+  elsif choice.include?('no') || choice.include?('n')
+    nil
+  else
+    restarting_game
+  end
 end
 
 main
