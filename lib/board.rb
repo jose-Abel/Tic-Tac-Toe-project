@@ -35,7 +35,7 @@ class Board
     i = 0
     y = 0
     puts_message("   1  2  3\n\n")
-  
+
     while i < variables.length
       var = variables[i].downcase
       key = positions[(var + numbers[y].to_s).to_s.to_sym]
@@ -46,7 +46,7 @@ class Board
         y += 1
         key = positions[(var + numbers[y].to_s).to_s.to_sym]
       end
-      
+
       y = 0
       i += 1
       puts_message('')
